@@ -94,6 +94,33 @@ Result:
 - **Square root of negative**: Operation ignored, stack unchanged, warning displayed
 - **Invalid input**: Non-numeric lines ignored
 
+## Installation
+
+### From GitHub Releases (Recommended)
+
+1. Go to [Releases](https://github.com/mnuck/codecalc/releases)
+2. Download the latest `.vsix` file
+3. Install in VSCode:
+   - Open Extensions sidebar (Ctrl+Shift+X)
+   - Click "..." menu → "Install from VSIX"
+   - Select the downloaded file
+
+**Or via command line:**
+```bash
+code --install-extension codecalc-0.0.1.vsix
+```
+
+### From Source
+
+\`\`\`bash
+git clone https://github.com/mnuck/codecalc.git
+cd codecalc
+npm install
+npm install -g @vscode/vsce
+vsce package
+code --install-extension codecalc-0.0.1.vsix
+\`\`\`
+
 ## Development
 
 ### Setup
