@@ -1,10 +1,11 @@
 # Code Calc
 
-RPN calculator extension for VSCode that works inside code blocks.
+RPN calculator extension for VSCode that works inside code blocks in any file type.
 
 ## Features
 
-- RPN (Reverse Polish Notation) calculator in markdown code blocks
+- RPN (Reverse Polish Notation) calculator in `\`\`\`calc` code blocks
+- Works in any file type (markdown, code files, text files, etc.)
 - Real-time arithmetic operations: `+`, `-`, `*`, `/`
 - On-Enter operations: `mod`, `swap`, `1/x`, `sqrt`, `sin`, `cos`, `tan`
 - Multiple independent calc blocks per file
@@ -12,7 +13,7 @@ RPN calculator extension for VSCode that works inside code blocks.
 
 ## Usage
 
-Create a calc block in any markdown file:
+Create a calc block in any file (`.md`, `.js`, `.txt`, etc.):
 
 \`\`\`calc
 123
@@ -115,6 +116,7 @@ npm run watch
 ## Technical Details
 
 - Written in TypeScript
-- Activates on markdown files
+- Activates on VSCode startup
+- Works in any file type that supports text editing
 - Each calc block maintains independent stack state
 - Operations are atomic document updates

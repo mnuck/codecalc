@@ -40,12 +40,6 @@ export class CalculatorProvider {
     }
 
     const document = event.document;
-
-    // Only process markdown documents
-    if (document.languageId !== 'markdown') {
-      return;
-    }
-
     const docKey = document.uri.toString();
     const blocks = this.getCachedBlocks(document);
     this.calcBlocks.set(docKey, blocks);

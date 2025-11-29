@@ -1,0 +1,23 @@
+Test calc blocks in plain text file
+
+```calc
+7
+3
+```
+
+Type + for addition - should show 10
+
+Another test:
+```calc
+16
+```
+
+Type sqrt then Enter - should show 4
+
+Testing mod:
+```calc
+17
+5
+```
+
+Type mod then Enter - should show 2

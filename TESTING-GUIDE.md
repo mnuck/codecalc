@@ -7,8 +7,8 @@
    - Opens new window with extension loaded
 
 2. **Create Test File**
-   - In Extension Development Host: Create `test.md`
-   - Must be `.md` file for extension to activate
+   - In Extension Development Host: Create any file (e.g., `test.md`, `test.js`, `test.txt`)
+   - Works in any file type
 
 3. **Run Tests**
    - Copy test cases from sections below
@@ -298,9 +298,16 @@ Type `sin` then Enter → Expected: ~0 (very close to 0, within floating point p
 
 ---
 
-### Non-Markdown Files Ignored
-Create `test.txt` (plain text file)
-Add calc block and try operations → Expected: Extension does nothing
+### Works in Any File Type
+Create `test.js` (JavaScript file):
+```js
+// Calculator test
+// ```calc
+// 10
+// 20
+// ```
+```
+Add `+` inside calc block → Expected: Updates to `30` (works in any file)
 
 ---
 
@@ -352,8 +359,8 @@ Verifies "1/x" isn't parsed as the number 1
 - Extension pauses when line executes
 
 **Common Issues:**
-- Extension doesn't activate → Check file is `.md`
-- Operations don't trigger → Check you're inside calc block
+- Extension doesn't activate → Wait a moment after VSCode starts, or reload window
+- Operations don't trigger → Check you're inside calc block (between \`\`\`calc and \`\`\`)
 - Changes not appearing → Press Ctrl+R to reload extension
 
 ---
