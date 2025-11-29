@@ -5,8 +5,8 @@ RPN calculator extension for VSCode that works inside code blocks.
 ## Features
 
 - RPN (Reverse Polish Notation) calculator in markdown code blocks
-- Real-time arithmetic operations: `+`, `-`, `*`, `/`, `mod`
-- On-Enter operations: `swap`, `1/x`, `sqrt`, `sin`, `cos`, `tan`
+- Real-time arithmetic operations: `+`, `-`, `*`, `/`
+- On-Enter operations: `mod`, `swap`, `1/x`, `sqrt`, `sin`, `cos`, `tan`
 - Multiple independent calc blocks per file
 - Error handling for division by zero, negative square roots, and insufficient operands
 
@@ -74,7 +74,7 @@ Result:
 | Subtraction | `-` | Real-time | Binary |
 | Multiplication | `*` | Real-time | Binary |
 | Division | `/` | Real-time | Binary |
-| Modulo | `mod` | Real-time | Binary |
+| Modulo | `mod` + Enter | On line completion | Binary |
 | Swap | `swap` + Enter | On line completion | Binary |
 | Reciprocal | `1/x` + Enter | On line completion | Unary |
 | Square Root | `sqrt` + Enter | On line completion | Unary |

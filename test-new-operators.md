@@ -1,11 +1,11 @@
 # Test New Operators
 
-## Modulo (Real-time)
+## Modulo (On Enter)
 ```calc
 17
 5
 ```
-Type `mod` - Expected: 2
+Type `mod` then Enter - Expected: 2
 
 ## Square Root (On Enter)
 ```calc
@@ -48,4 +48,4 @@ Type `sqrt` then Enter - Expected: Warning "Square root of negative number"
 10
 0
 ```
-Type `mod` - Expected: Warning "Modulo by zero"
+Type `mod` then Enter - Expected: Warning "Modulo by zero"

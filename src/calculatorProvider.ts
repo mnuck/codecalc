@@ -154,7 +154,7 @@ export class CalculatorProvider {
         break;
       case OPERATORS.MODULO:
         operation = modulo;
-        isRealTime = true;
+        isRealTime = false;
         break;
       case OPERATORS.SWAP:
         operation = swap;
