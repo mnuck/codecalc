@@ -11,6 +11,7 @@ interface CalcBlock {
 export class CalculatorProvider {
   private calcBlocks: Map<string, CalcBlock[]> = new Map();
   private isProcessingUpdate = false;
+  private parseCache: Map<string, { version: number; blocks: CalcBlock[] }> = new Map();
 
   public activate(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidChangeTextDocument(
@@ -18,6 +19,18 @@ export class CalculatorProvider {
       null,
       context.subscriptions
     );
+
+    vscode.workspace.onDidCloseTextDocument(
+      (document) => this.onDocumentClose(document),
+      null,
+      context.subscriptions
+    );
+  }
+
+  private onDocumentClose(document: vscode.TextDocument): void {
+    const docKey = document.uri.toString();
+    this.calcBlocks.delete(docKey);
+    this.parseCache.delete(docKey);
   }
 
   private onDocumentChange(event: vscode.TextDocumentChangeEvent): void {
@@ -34,11 +47,10 @@ export class CalculatorProvider {
     }
 
     const docKey = document.uri.toString();
+    const blocks = this.getCachedBlocks(document);
+    this.calcBlocks.set(docKey, blocks);
 
     for (const change of event.contentChanges) {
-      const blocks = this.findCalcBlocks(document);
-      this.calcBlocks.set(docKey, blocks);
-
       const changedLineNumber = document.positionAt(change.rangeOffset).line;
       const activeBlock = this.findBlockContainingLine(blocks, changedLineNumber);
 
@@ -46,6 +58,21 @@ export class CalculatorProvider {
         this.processBlock(document, activeBlock, change);
       }
     }
+  }
+
+  private getCachedBlocks(document: vscode.TextDocument): CalcBlock[] {
+    const docKey = document.uri.toString();
+    const cached = this.parseCache.get(docKey);
+
+    // Use cached result if document version hasn't changed
+    if (cached && cached.version === document.version) {
+      return cached.blocks;
+    }
+
+    // Parse and cache
+    const blocks = this.findCalcBlocks(document);
+    this.parseCache.set(docKey, { version: document.version, blocks });
+    return blocks;
   }
 
   private findCalcBlocks(document: vscode.TextDocument): CalcBlock[] {
@@ -155,6 +182,9 @@ export class CalculatorProvider {
 
     if (result.success && result.result) {
       this.updateBlock(document, block, result.result);
+    } else if (result.error) {
+      // Show error message to user
+      vscode.window.showWarningMessage(`Calculator: ${result.error}`);
     }
   }
 
@@ -165,7 +195,11 @@ export class CalculatorProvider {
       new vscode.Position(block.endLine + 1, 0)
     );
 
-    const newContent = newStack.map(n => n.toString()).join('\n') + '\n';
+    // Handle empty stacks with a placeholder comment
+    const newContent = newStack.length > 0
+      ? newStack.map(n => n.toString()).join('\n') + '\n'
+      : '# empty\n';
+
     edit.replace(document.uri, range, newContent);
 
     this.isProcessingUpdate = true;
