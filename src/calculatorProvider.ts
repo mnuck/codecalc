@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { add, subtract, multiply, divide, swap, reciprocal, OperationResult } from './stackOperations';
+import { OPERATORS, OPERATOR_LIST } from './constants';
 
 interface CalcBlock {
   startLine: number;
@@ -9,6 +10,7 @@ interface CalcBlock {
 
 export class CalculatorProvider {
   private calcBlocks: Map<string, CalcBlock[]> = new Map();
+  private isProcessingUpdate = false;
 
   public activate(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidChangeTextDocument(
@@ -19,7 +21,18 @@ export class CalculatorProvider {
   }
 
   private onDocumentChange(event: vscode.TextDocumentChangeEvent): void {
+    // Ignore changes triggered by our own updates
+    if (this.isProcessingUpdate) {
+      return;
+    }
+
     const document = event.document;
+
+    // Only process markdown documents
+    if (document.languageId !== 'markdown') {
+      return;
+    }
+
     const docKey = document.uri.toString();
 
     for (const change of event.contentChanges) {
@@ -64,13 +77,12 @@ export class CalculatorProvider {
 
   private parseStack(document: vscode.TextDocument, startLine: number, endLine: number): number[] {
     const stack: number[] = [];
-    const operators = ['+', '-', '*', '/', 'swap', '1/x'];
 
     for (let i = startLine; i <= endLine && i < document.lineCount; i++) {
       const line = document.lineAt(i).text.trim();
 
       // Skip operator lines
-      if (operators.includes(line)) {
+      if (OPERATOR_LIST.includes(line)) {
         continue;
       }
 
@@ -97,27 +109,27 @@ export class CalculatorProvider {
     let isRealTime = false;
 
     switch (line) {
-      case '+':
+      case OPERATORS.ADD:
         operation = add;
         isRealTime = true;
         break;
-      case '-':
+      case OPERATORS.SUBTRACT:
         operation = subtract;
         isRealTime = true;
         break;
-      case '*':
+      case OPERATORS.MULTIPLY:
         operation = multiply;
         isRealTime = true;
         break;
-      case '/':
+      case OPERATORS.DIVIDE:
         operation = divide;
         isRealTime = true;
         break;
-      case 'swap':
+      case OPERATORS.SWAP:
         operation = swap;
         isRealTime = false;
         break;
-      case '1/x':
+      case OPERATORS.RECIPROCAL:
         operation = reciprocal;
         isRealTime = false;
         break;
@@ -146,7 +158,7 @@ export class CalculatorProvider {
     }
   }
 
-  private updateBlock(document: vscode.TextDocument, block: CalcBlock, newStack: number[]): void {
+  private async updateBlock(document: vscode.TextDocument, block: CalcBlock, newStack: number[]): Promise<void> {
     const edit = new vscode.WorkspaceEdit();
     const range = new vscode.Range(
       new vscode.Position(block.startLine, 0),
@@ -156,6 +168,8 @@ export class CalculatorProvider {
     const newContent = newStack.map(n => n.toString()).join('\n') + '\n';
     edit.replace(document.uri, range, newContent);
 
-    vscode.workspace.applyEdit(edit);
+    this.isProcessingUpdate = true;
+    await vscode.workspace.applyEdit(edit);
+    this.isProcessingUpdate = false;
   }
 }
