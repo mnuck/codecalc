@@ -5,10 +5,10 @@ RPN calculator extension for VSCode that works inside code blocks.
 ## Features
 
 - RPN (Reverse Polish Notation) calculator in markdown code blocks
-- Real-time arithmetic operations: `+`, `-`, `*`, `/`
-- On-Enter operations: `swap`, `1/x`
+- Real-time arithmetic operations: `+`, `-`, `*`, `/`, `mod`
+- On-Enter operations: `swap`, `1/x`, `sqrt`, `sin`, `cos`, `tan`
 - Multiple independent calc blocks per file
-- Error handling for division by zero and insufficient operands
+- Error handling for division by zero, negative square roots, and insufficient operands
 
 ## Usage
 
@@ -68,20 +68,29 @@ Result:
 
 ## Supported Operations
 
-| Operation | Trigger | Behavior |
-|-----------|---------|----------|
-| Addition | `+` | Real-time |
-| Subtraction | `-` | Real-time |
-| Multiplication | `*` | Real-time |
-| Division | `/` | Real-time |
-| Swap | `swap` + Enter | On line completion |
-| Reciprocal | `1/x` + Enter | On line completion |
+| Operation | Trigger | Behavior | Operands |
+|-----------|---------|----------|----------|
+| Addition | `+` | Real-time | Binary |
+| Subtraction | `-` | Real-time | Binary |
+| Multiplication | `*` | Real-time | Binary |
+| Division | `/` | Real-time | Binary |
+| Modulo | `mod` | Real-time | Binary |
+| Swap | `swap` + Enter | On line completion | Binary |
+| Reciprocal | `1/x` + Enter | On line completion | Unary |
+| Square Root | `sqrt` + Enter | On line completion | Unary |
+| Sine | `sin` + Enter | On line completion | Unary |
+| Cosine | `cos` + Enter | On line completion | Unary |
+| Tangent | `tan` + Enter | On line completion | Unary |
+
+**Note:** Trigonometric functions expect input in radians.
 
 ## Error Handling
 
-- **Insufficient operands**: Operation ignored, stack unchanged
-- **Division by zero**: Operation ignored, stack unchanged
-- **Reciprocal of zero**: Operation ignored, stack unchanged
+- **Insufficient operands**: Operation ignored, stack unchanged, warning displayed
+- **Division by zero**: Operation ignored, stack unchanged, warning displayed
+- **Modulo by zero**: Operation ignored, stack unchanged, warning displayed
+- **Reciprocal of zero**: Operation ignored, stack unchanged, warning displayed
+- **Square root of negative**: Operation ignored, stack unchanged, warning displayed
 - **Invalid input**: Non-numeric lines ignored
 
 ## Development

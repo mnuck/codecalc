@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { add, subtract, multiply, divide, swap, reciprocal, OperationResult } from './stackOperations';
+import { add, subtract, multiply, divide, modulo, swap, reciprocal, sqrt, sin, cos, tan, OperationResult } from './stackOperations';
 import { OPERATORS, OPERATOR_LIST } from './constants';
 
 interface CalcBlock {
@@ -152,12 +152,32 @@ export class CalculatorProvider {
         operation = divide;
         isRealTime = true;
         break;
+      case OPERATORS.MODULO:
+        operation = modulo;
+        isRealTime = true;
+        break;
       case OPERATORS.SWAP:
         operation = swap;
         isRealTime = false;
         break;
       case OPERATORS.RECIPROCAL:
         operation = reciprocal;
+        isRealTime = false;
+        break;
+      case OPERATORS.SQRT:
+        operation = sqrt;
+        isRealTime = false;
+        break;
+      case OPERATORS.SIN:
+        operation = sin;
+        isRealTime = false;
+        break;
+      case OPERATORS.COS:
+        operation = cos;
+        isRealTime = false;
+        break;
+      case OPERATORS.TAN:
+        operation = tan;
         isRealTime = false;
         break;
     }
