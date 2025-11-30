@@ -4,7 +4,7 @@ RPN calculator extension for VSCode that works inside code blocks in any file ty
 
 ## Features
 
-- RPN (Reverse Polish Notation) calculator in `\`\`\`calc` code blocks
+- RPN (Reverse Polish Notation) calculator in ` ```calc ` code blocks
 - Works in any file type (markdown, code files, text files, etc.)
 - Real-time arithmetic operations: `+`, `-`, `*`, `/`
 - On-Enter operations: `mod`, `swap`, `1/x`, `sqrt`, `sin`, `cos`, `tan`
@@ -15,10 +15,10 @@ RPN calculator extension for VSCode that works inside code blocks in any file ty
 
 Create a calc block in any file (`.md`, `.js`, `.txt`, etc.):
 
-\`\`\`calc
+```calc
 123
 456
-\`\`\`
+```
 
 The stack is displayed top-to-bottom, with the last line being the top of the stack.
 
@@ -26,46 +26,46 @@ The stack is displayed top-to-bottom, with the last line being the top of the st
 
 Type an operator on a new line for immediate execution:
 
-\`\`\`calc
+```calc
 10
 5
 +
-\`\`\`
+```
 
 Result:
-\`\`\`calc
+```calc
 15
-\`\`\`
+```
 
 ### Swap Operation (On Enter)
 
 Type `swap` and press Enter to swap the top two elements:
 
-\`\`\`calc
+```calc
 10
 20
 swap
-\`\`\`
+```
 
 Result:
-\`\`\`calc
+```calc
 20
 10
-\`\`\`
+```
 
 ### Reciprocal (On Enter)
 
 Type `1/x` and press Enter to compute the reciprocal:
 
-\`\`\`calc
+```calc
 4
 1/x
-\`\`\`
+```
 
 Result:
-\`\`\`calc
+```calc
 0.25
-\`\`\`
+```
 
 ## Supported Operations
 
@@ -112,23 +112,23 @@ code --install-extension codecalc-0.0.1.vsix
 
 ### From Source
 
-\`\`\`bash
+```bash
 git clone https://github.com/mnuck/codecalc.git
 cd codecalc
 npm install
 npm install -g @vscode/vsce
 vsce package
 code --install-extension codecalc-0.0.1.vsix
-\`\`\`
+```
 
 ## Development
 
 ### Setup
 
-\`\`\`bash
+```bash
 npm install
 npm run compile
-\`\`\`
+```
 
 ### Run Extension
 
@@ -136,9 +136,9 @@ Press F5 in VSCode to open the Extension Development Host.
 
 ### Watch Mode
 
-\`\`\`bash
+```bash
 npm run watch
-\`\`\`
+```
 
 ## Technical Details
 
