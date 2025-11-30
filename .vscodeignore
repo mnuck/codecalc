@@ -1,0 +1,19 @@
+# Source files - only ship compiled JavaScript
+src/**
+tsconfig.json
+
+# Development files
+.gitignore
+.github/**
+.vscode-test/**
+node_modules/**
+
+# Documentation for development
+CLAUDE.md
+
+# Git files
+.git
+.gitattributes
+
+# Build artifacts
+*.vsix
