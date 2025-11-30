@@ -16,10 +16,9 @@ RPN calculator extension for VSCode that works inside code blocks in any file ty
 Create a calc block in any file (`.md`, `.js`, `.txt`, etc.):
 
 ```
-\`\`\`calc
+```calc
 123
 456
-\`\`\`\
 ```
 
 The stack is displayed top-to-bottom, with the last line being the top of the stack.
