@@ -15,10 +15,12 @@ RPN calculator extension for VSCode that works inside code blocks in any file ty
 
 Create a calc block in any file (`.md`, `.js`, `.txt`, etc.):
 
+````
 ```calc
 123
 456
 ```
+````
 
 The stack is displayed top-to-bottom, with the last line being the top of the stack.
 
@@ -26,46 +28,58 @@ The stack is displayed top-to-bottom, with the last line being the top of the st
 
 Type an operator on a new line for immediate execution:
 
+````
 ```calc
 10
 5
 +
 ```
+````
 
 Result:
+````
 ```calc
 15
 ```
+````
 
 ### Swap Operation (On Enter)
 
 Type `swap` and press Enter to swap the top two elements:
 
+````
 ```calc
 10
 20
 swap
 ```
+````
 
 Result:
+````
 ```calc
 20
 10
 ```
+````
 
 ### Reciprocal (On Enter)
 
 Type `1/x` and press Enter to compute the reciprocal:
 
+````
 ```calc
 4
 1/x
 ```
+````
 
 Result:
+````
 ```calc
 0.25
 ```
+````
 
 ## Supported Operations
 
